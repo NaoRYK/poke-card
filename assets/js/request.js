@@ -7,6 +7,7 @@ const fetchPokemon = async(pokemon) =>{
 
         const response = await fetch(baseURL + pokemon)
         const json = await response.json();
+
         return json;
     }
     catch{

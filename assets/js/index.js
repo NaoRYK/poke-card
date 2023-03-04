@@ -5,31 +5,30 @@ const pokeForm = document.getElementById("searchForm");
 const card = document.querySelector(".card");
 const changeHTML = ( pokemon) =>{
     card.innerHTML = `
-    <div class="card-container animate">
-        <div id="spanPokeName"><h2 id="pokeName">${pokemon.name.toUpperCase()}</h2></div>
+    <div class="card-container animate ${pokemon.types[0].type.name}">
+        <div id="spanPokeName" ><h2 id="pokeName">${pokemon.name.toUpperCase()}</h2></div>
         <div id="divPokeImg">
             <img id="pokeImg" src="${pokemon.sprites.front_default}" alt="">
         </div>
-        <p id="pokeType">${pokemon.types[0].type.name[0].toUpperCase() + pokemon.types[0].type.name.substring(1)}</p>
+        <p class="${pokemon.types[0].type.name}" id="pokeType">${pokemon.types[0].type.name[0].toUpperCase() + pokemon.types[0].type.name.substring(1)}</p>
 
         <div id="pokeInfo">
             <p>${pokemon.height * 10}cm</p>
             <p>${dividir(pokemon.weight)}kg</p>
         </div>
     </div>
+
+    <div id="description-container" class="animate">
+        <img id="description" src="./assets/img/49-491514_pokemon-dialog-box-pokemon-dialogue-box.png">
+        <h3 id="text-description">The name of this pokemon is ${pokemon.name.toUpperCase()}, it is an ${pokemon.types[0].type.name} type pokemon with a height of ${pokemon.height * 10}cm and a weight of ${dividir(pokemon.weight)}kg </h3>
+    </div>
     `;
     pokeForm.reset();
 };
 
-let pokemonLocal = JSON.parse(localStorage.getItem('pokemonLocal'));
+
 
 // Funcion para guardar en el local storage
-
-const saveLocalStorage = (pokemon) =>{
-
-    
-    localStorage.setItem('pokemonLocal', JSON.stringify(pokemon));
-}
 
 let dividir = (medida) => medida / 10;
 
@@ -44,7 +43,6 @@ const searchPokemon = async e =>{
 
 
 
-    saveLocalStorage(fetchedPokemon);
     changeHTML(fetchedPokemon);
 
     //  console.log("Soy el local", pokemonLocal.name)
